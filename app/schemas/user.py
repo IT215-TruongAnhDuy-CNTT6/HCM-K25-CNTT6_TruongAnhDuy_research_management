@@ -1,37 +1,13 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
-class UserBase(BaseModel):
-    email: EmailStr
-
-class UserCreate(UserBase):
-    full_name: str
-    password: str
-    role: str = "USER"
-
-    class Config:
-        from_attributes = True
-
-class UserLogin(UserBase):
-    password: str
-
-    class Config:
-            from_attributes = True
-
-class UserResponse(UserBase):
+class UserResponse(BaseModel):
     id: int
-    is_active: bool
+    email: str
+    full_name: str
     role: str
+    is_active: bool
     created_at: datetime
 
     class Config:
         from_attributes = True
-
-class TokenResponse(BaseModel):
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
-
-
-class RefreshRequest(BaseModel):
-    refresh_token: str
