@@ -12,9 +12,9 @@ app = FastAPI(
 Base.metadata.create_all(bind=engine)
 
 @app.exception_handler(Exception)
-async def unhandled_exception_handler(request: Request, exc: Exception):
+def unhandled_exception_handler(request: Request, exc: Exception):
     if isinstance(exc, HTTPException):
-        return await http_exception_handler(request, exc)
+        return http_exception_handler(request, exc)
     return JSONResponse(
         status_code=500, 
         content={"detail": "Lỗi hệ thống, vui lòng thử lại sau"}
